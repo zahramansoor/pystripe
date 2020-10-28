@@ -41,7 +41,7 @@ A typical result looks like this:
 
 ## Installation
 
-Installation can be done using `pip`, e.g.
+Installation can be done using `python`, e.g.
 
 ```bash
 > git clone git@github.com:zahramansoor/pystripe.git
