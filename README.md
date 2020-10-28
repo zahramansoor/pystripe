@@ -18,6 +18,7 @@ Renier et al. "Mapping of brain activity by automated volume analysis of immedia
 Cell 165.7 (2016): 1789-1802.
 https://doi.org/10.1016/j.cell.2016.05.007
 
+Modifications for linux OS and linux-based HPCs by Z. Dhanerawala (zmd@princeton.edu)
 
 ```python
 import pystripe
@@ -43,14 +44,9 @@ A typical result looks like this:
 Installation can be done using `pip`, e.g.
 
 ```bash
-> pip install https://github.com/chunglabmit/pystripe/archive/master.zip
-```
-
-If using the provided Windows batch scripts, install within a conda environment
-```bash
-> conda create -n pystripe python==3.6
-> activate pystripe
-> pip install https://github.com/chunglabmit/pystripe/archive/master.zip
+> git clone git@github.com:zahramansoor/pystripe.git
+> cd pystripe #navigate to the main repo folder
+> python setup.py install #run python install to incorporate edits for linux
 ```
 
 ## Command-line interface (CLI)
