@@ -44,7 +44,7 @@ A typical result looks like this:
 Installation can be done using `python`, e.g.
 
 ```bash
-> git clone git@github.com:zahramansoor/pystripe.git
+> git clone https://github.com/zahramansoor/pystripe.git
 > cd pystripe #navigate to the main repo folder
 > python setup.py install #run python install to incorporate edits for linux
 ```
