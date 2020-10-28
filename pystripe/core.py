@@ -143,6 +143,28 @@ def imsave(path, img, compression=1):
     elif extension == '.tif' or extension == '.tiff':
         tifffile.imsave(path, img, compress=compression)
 
+def unpad(x, pad_width):
+    """
+
+    func to unpad slice (FOR LINUX)
+    ----------
+    x : ndarray
+        image array
+    pad_width : tuple
+        tuple fed to np.pad
+
+    Returns
+    -------
+    ndarray
+        unpadded img
+
+    """
+    slices = []
+    for c in pad_width:
+        e = None if c[1] == 0 else -c[1]
+        slices.append(slice(c[0], e))
+    return x[tuple(slices)]
+
 
 def wavedec(img, wavelet, level=None):
     """Decompose `img` using discrete (decimated) wavelet transform using `wavelet`
@@ -421,9 +443,8 @@ def filter_streaks(img, sigma, level=0, wavelet='db3', crossover=10, threshold=-
             threshold = 1
 
     img = np.array(img, dtype=np.float)
-    #
     # Need to pad image to multiple of 2
-    #
+    # TODO: zmd: this causes issues in linux, depad before dividing by flat???
     pady, padx = [_ % 2 for _ in img.shape]
     if pady == 1 or padx == 1:
         img = np.pad(img, ((0, pady), (0, padx)), mode="edge")
@@ -463,7 +484,10 @@ def filter_streaks(img, sigma, level=0, wavelet='db3', crossover=10, threshold=-
     # TODO: Fix code to clip back to original bit depth
     # scaled_fimg = hist_match(fimg, img)
     # np.clip(scaled_fimg, np.iinfo(img.dtype).min, np.iinfo(img.dtype).max, out=scaled_fimg)
-
+    
+    # TODO: zmd changed this to depad image before division, why do we have to do this for linux tho?
+    if pady == 1 or padx == 1:
+        fimg = unpad(fimg, ((0, pady), (0, padx)))
     # Subtract the dark offset fiirst
     if dark > 0:
         fimg = fimg - dark
